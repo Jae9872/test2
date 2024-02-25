@@ -117,6 +117,15 @@
 </head>
 
 <body class="body">
+<div id="video-container">
+    <video id="background-video" autoplay>
+        <source src="vid.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div id="overlay"></div>
+</div>
+
+<div id="content" class="hidden">
 <div class="page-wrapper">
 <div class="global-styles w-embed">
 <style>
@@ -636,7 +645,70 @@ a {
 </script>
 
 
+</div>
 
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    #video-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    #background-video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -1;
+    }
+
+    #overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    #content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-align: center;
+    }
+
+    .hidden {
+        display: none;
+    }
+</style>
+
+<script>
+    document.getElementById('background-video').addEventListener('ended', function() {
+        document.getElementById('video-container').classList.add('hidden');
+        document.getElementById('content').classList.remove('hidden');
+    });
+</script>
 
 </body>
 </html>
