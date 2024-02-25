@@ -114,16 +114,41 @@
 }
 </script>
 <script type="text/javascript">window.__WEBFLOW_CURRENCY_SETTINGS = {"currencyCode":"USD","symbol":"$","decimal":".","fractionDigits":2,"group":",","template":"{{wf {\"path\":\"symbol\",\"type\":\"PlainText\"} }} {{wf {\"path\":\"amount\",\"type\":\"CommercePrice\"} }} {{wf {\"path\":\"currencyCode\",\"type\":\"PlainText\"} }}","hideDecimalForWholeNumbers":false};</script>
-</head>
+   <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
 
-<body class="body">
-<div id="video-container">
-    <video id="background-video" autoplay muted>
-        <source src="vid.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-    <div id="overlay"></div>
-</div>
+        #video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        #video {
+            width: 100%;
+            height: 100%;
+        }
+
+        #content {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="video-container">
+        <video id="video" autoplay muted loop>
+            <source src="vid.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div id="content">
 
 <div id="content" class="hidden">
 <div class="page-wrapper">
@@ -638,70 +663,18 @@ a {
 </script>
 </div>
 </div>
-</div></div>
+</div>     </div>
 
-<style>
-    body, html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        overflow: hidden;
-    }
+    <script>
+        const video = document.getElementById('video');
+        const content = document.getElementById('content');
 
-    #video-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-    }
-
-    #background-video {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        min-width: 100%;
-        min-height: 100%;
-        width: auto;
-        height: auto;
-        z-index: -1;
-    }
-
-    #overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-    }
-
-    #content {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        text-align: center;
-    }
-
-    .hidden {
-        display: none;
-    }
-</style>
-
-<script>
-    document.getElementById('background-video').addEventListener('ended', function() {
-        document.getElementById('video-container').classList.add('hidden');
-        document.getElementById('content').classList.remove('hidden');
-    });
-</script>
+        // When the video ends, hide the video container and show the content
+        video.addEventListener('ended', function() {
+            document.getElementById('video-container').style.display = 'none';
+            content.style.display = 'block';
+        });
+    </script>
 <script src="js/jquery-3.5.1.min.dc5e7f18c8.js" type="text/javascript" crossorigin="anonymous">
 </script>
 <script src="js/webflow.30bca0f8e.js" type="text/javascript">
